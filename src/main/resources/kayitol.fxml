@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<?import javafx.scene.text.Text?>
+<AnchorPane prefHeight="634.0" prefWidth="596.0" style="-fx-background-color: #B0E0E6;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo3.KayitolController">
+   <children>
+      <Label layoutX="20.0" layoutY="88.0" prefHeight="21.0" prefWidth="49.0" text="Soyisim:" />
+      <Label layoutX="24.0" layoutY="141.0" text="Kullanıcı adı:" />
+      <Label layoutX="26.0" layoutY="192.0" text="Şifre:" />
+      <Label layoutX="25.0" layoutY="241.0" text="Şifre tekrar:" />
+      <Label layoutX="26.0" layoutY="296.0" text="E-mail:" />
+      <Label layoutX="25.0" layoutY="345.0" text="TelefonNo:" />
+      <Label layoutX="21.0" layoutY="44.0" prefHeight="21.0" prefWidth="74.0" text="İsim:" />
+      <TextField fx:id="isimTextID" layoutX="112.0" layoutY="40.0" onAction="#isimText" />
+      <TextField fx:id="soyisimTextID" layoutX="112.0" layoutY="84.0" onAction="#soyisimText" />
+      <TextField fx:id="kullaniciadTextID" layoutX="112.0" layoutY="137.0" onAction="#kullaniciadiText" />
+      <TextField fx:id="sifreTextID" layoutX="112.0" layoutY="188.0" onAction="#sifreText" />
+      <TextField fx:id="sifretkrTextID" layoutX="112.0" layoutY="237.0" onAction="#sifretkrText" />
+      <TextField fx:id="emailTextID" layoutX="112.0" layoutY="292.0" onAction="#emailText" />
+      <TextField fx:id="telefonnoTextID" layoutX="112.0" layoutY="341.0" onAction="#telefonnoText" />
+      <CheckBox layoutX="268.0" layoutY="193.0" mnemonicParsing="false" text="şifreyi göster" />
+      <CheckBox layoutX="268.0" layoutY="242.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="102.0" text="şifreyi göster" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="426.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Downloads/WhatsApp%20Image%202025-12-05%20at%2014.43.50.jpeg" />
+         </image>
+      </ImageView>
+      <Button layoutX="141.0" layoutY="405.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="116.0" style="-fx-background-color: #9CC8DF;" text="Kayıt Ol" />
+   </children>
+</AnchorPane>

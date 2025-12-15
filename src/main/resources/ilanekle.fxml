@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="549.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo3.IlanekleController">
+   <children>
+      <VBox prefHeight="166.0" prefWidth="317.0" style="-fx-background-color: red;">
+         <children>
+            <Label text="Katogeri Seçiniz" />
+            <ComboBox fx:id="katogoriSecici" prefHeight="28.0" prefWidth="134.0" promptText="Katogeriler" />
+            <Label text="Fiyat" />
+            <TextField fx:id="fiyatTextField" style="-fx-background-color: blue;" />
+            <HBox prefHeight="38.0" prefWidth="302.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="87.0" text="Resim Yolu" />
+                  <TextField fx:id="resimyoluTextField" style="-fx-background-color: blue;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+                  <Button mnemonicParsing="false" onAction="#gozatButton" prefHeight="31.0" prefWidth="79.0" text="gözat.." />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#ilanPaylas" prefHeight="31.0" prefWidth="85.0" text="İlanı Paylaş" />
+         </children>
+      </VBox>
+      <AnchorPane fx:id="dinamikFormKonteyniri" layoutY="166.0" prefHeight="341.0" prefWidth="632.0">
+         <children>
+            <HBox layoutX="14.0" layoutY="14.0" prefHeight="244.0" prefWidth="597.0">
+               <children>
+                  <VBox fx:id="otomobilFormVBox" prefHeight="376.0" prefWidth="123.0">
+                     <children>
+                        <Label text="Taşıt Türü" />
+                        <TextField fx:id="tasitturuTextField" />
+                        <Label text="Marka" />
+                        <TextField fx:id="omarkaTextFied" />
+                        <Label text="Model yılı" />
+                        <TextField fx:id="omodelTextField" />
+                        <Label text="Vites Türü" />
+                        <TextField fx:id="vitesTextField" />
+                        <Label text="Açıklama" />
+                        <TextArea fx:id="oaciklamaTextArea" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="teknoFormVBox" prefHeight="376.0" prefWidth="126.0">
+                     <children>
+                        <Label text="Teknoljik Eşya Türü" />
+                        <TextField fx:id="teknotürüTextField" />
+                        <Label text="Marka" />
+                        <TextField fx:id="tmarkaTextField" />
+                        <Label text="model" />
+                        <TextField fx:id="tmodelTextField" />
+                        <Label />
+                        <Label text="Açıklama" />
+                        <TextArea fx:id="taciklamaTextArea" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="giyimFormVBox" prefHeight="244.0" prefWidth="105.0">
+                     <children>
+                        <Label text="Giyim Türü" />
+                        <TextField fx:id="giyimturTextField" />
+                        <Label text="Marka" />
+                        <TextField fx:id="gmarkaTextField" />
+                        <Label text="Beden" />
+                        <TextField fx:id="gbedenTextField" />
+                        <Label text="Aşınma Miktarı" />
+                        <TextField fx:id="asinmamiktarTextField" />
+                        <Label text="Cinsiyet" />
+                        <ComboBox fx:id="cinsiyetComboBox" prefWidth="150.0" />
+                        <Label text="Açıklama" />
+                        <TextArea fx:id="kaciklamaTextArea" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="konutFormVBox" prefHeight="244.0" prefWidth="101.0">
+                     <children>
+                        <Label text="Konut Tipi" />
+                        <TextField fx:id="konuttipiTextField" />
+                        <Label text="Yapım Yılı" />
+                        <TextField fx:id="konutyapimyiliTextField" />
+                        <Label text="Oda Sayısı" />
+                        <TextField fx:id="odasayisiTextField" />
+                        <Label text="şehir" />
+                        <TextField fx:id="sehirTextField" />
+                        <Label text="İlçe" />
+                        <TextField fx:id="ilceTextField" />
+                        <Label text="Mahalle" />
+                        <TextField fx:id="mahalleTextField" />
+                        <Label text="Sokak" />
+                        <TextField fx:id="sokakTextField" />
+                        <Label text="Açıklama" />
+                        <TextArea fx:id="aciklamaTextArea" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="dersFormVBox" prefHeight="244.0" prefWidth="105.0">
+                     <children>
+                        <Label text="Ders Türü" />
+                        <TextField fx:id="dersturuTextField" />
+                        <Label text="Eğitim seviyesi" />
+                        <TextField fx:id="egitimseviyesiTextField" />
+                        <Label text="Açıklama" />
+                        <TextArea fx:id="dersTextArea" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

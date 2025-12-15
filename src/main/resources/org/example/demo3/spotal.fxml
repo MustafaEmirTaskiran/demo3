@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="939.0" prefWidth="1118.0" style="-fx-background-color: #B0E0E6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo3.SpotalController">
+   <children>
+      <VBox layoutX="21.0" layoutY="294.0" prefHeight="630.0" prefWidth="150.0" style="-fx-background-color: #F8F8F8;">
+         <children>
+            <Button fx:id="tasitButton" mnemonicParsing="false" onAction="#tasitButtonclick" prefHeight="30.0" prefWidth="113.0" style="-fx-background-color: transparant;" text="Taşıt" textFill="#333333" />
+            <VBox fx:id="tasitAltVBox" managed="false" visible="false">
+               <children>
+                  <Button fx:id="otomobilButton" mnemonicParsing="false" onAction="#otomobilButtonclick" style="-fx-background-color: transparant;" text="otomobil" textFill="#333333" />
+                  <Button fx:id="motorButton" mnemonicParsing="false" onAction="#motorButtonclick" style="-fx-background-color: transparant;" text="motor" textFill="#333333" />
+                  <Button fx:id="kamyonetButton" mnemonicParsing="false" onAction="#kamyonetButtonclick" style="-fx-background-color: transparant;" text="kamyonet" textFill="#333333" />
+                  <Button fx:id="digerButton" mnemonicParsing="false" onAction="#digerButtonclick" style="-fx-background-color: transparant;" text="diğer" textFill="#333333" />
+               </children>
+            </VBox>
+            <Button fx:id="konutButton" mnemonicParsing="false" onAction="#konutButtonclick" prefHeight="29.0" prefWidth="119.0" style="-fx-background-color: transparant;" text="Konut" textFill="#333333" />
+            <Button fx:id="daireButton" mnemonicParsing="false" onAction="#daireButtonclick" style="-fx-background-color: transparant;" text="daire" textFill="#333333" />
+            <Button fx:id="arsaButton" mnemonicParsing="false" onAction="#arsaButtonclick" style="-fx-background-color: transparant;" text="arsa" textFill="#333333" />
+            <Button fx:id="mustakilButton" mnemonicParsing="false" onAction="#mustakilButtonclick" style="-fx-background-color: transparant;" text="müstakil" textFill="#333333" />
+            <Button fx:id="teknoButton" mnemonicParsing="false" onAction="#teknoButtonclick" prefHeight="30.0" prefWidth="149.0" style="-fx-background-color: transparant;" text="Teknoloji" textFill="#333333" />
+            <Button fx:id="ceptelefonuButton" mnemonicParsing="false" onAction="#ceptelefonuButtonclick" style="-fx-background-color: transparant;" text="cep telefonu" textFill="#333333" />
+            <Button fx:id="bilgisayaraButton" mnemonicParsing="false" onAction="#bilgisayaraButtonclick" style="-fx-background-color: transparant;" text="bilgisayar" textFill="#333333" />
+            <Button fx:id="beyazesyaButton" mnemonicParsing="false" onAction="#beyazesyaButtonclick" style="-fx-background-color: transparant;" text="beyaz eşya" textFill="#333333" />
+            <Button fx:id="cpequiptButton" mnemonicParsing="false" onAction="#cpequiptButtonclick" style="-fx-background-color: transparant;" text="bilgisayar ekipmanları" textFill="#333333" />
+            <Button fx:id="ozeldersButton" mnemonicParsing="false" onAction="#ozeldersButtonclick" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: transparant;" text="özel ders" textFill="#333333" />
+            <Button fx:id="tytButton" mnemonicParsing="false" onAction="#tytButtonclick" style="-fx-background-color: transparant;" text="tyt - ayt- lgs" textFill="#333333" />
+            <Button fx:id="arasinifButton" mnemonicParsing="false" onAction="#arasinifButtonclick" style="-fx-background-color: transparant;" text="ara sınıf" textFill="#333333" />
+            <Button fx:id="giyimButton" mnemonicParsing="false" onAction="#giyimButtonclick" prefHeight="30.0" prefWidth="153.0" style="-fx-background-color: transparant;" text="Giyim" textFill="#333333" />
+            <Button fx:id="ustgiyimButton" mnemonicParsing="false" onAction="#ustgiyimButtonclick" style="-fx-background-color: transparant;" text="üst giyim" textFill="#333333" />
+            <Button fx:id="altgiyimButton" mnemonicParsing="false" onAction="#altgiyimButtonclick" style="-fx-background-color: transparant;" text="alt giyim" textFill="#333333" />
+         </children>
+      </VBox>
+      <BorderPane layoutY="-3.0" prefHeight="228.0" prefWidth="1119.0" style="-fx-background-color: #B0E0E6;" AnchorPane.bottomAnchor="714.0" AnchorPane.topAnchor="-3.0">
+         <left>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../../../../../../../../Downloads/WhatsApp%20Image%202025-12-05%20at%2014.43.50.jpeg" />
+               </image>
+            </ImageView>
+         </left>
+         <right>
+            <VBox prefHeight="185.0" prefWidth="244.0" style="-fx-background-color: #FF7F50;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="32.0" prefWidth="320.0">
+                     <children>
+                        <Label prefHeight="21.0" prefWidth="100.0" text="Kullanıcı Adı" textFill="#333333" />
+                        <TextField />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="25.0" prefWidth="303.0">
+                     <children>
+                        <Label prefHeight="21.0" prefWidth="102.0" text="şifre" textFill="#333333" />
+                        <PasswordField prefHeight="30.0" prefWidth="147.0" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="girisButton" mnemonicParsing="false" onAction="#girisButtonclick" prefHeight="30.0" prefWidth="320.0" style="-fx-background-color: transparent;" text="Giriş Yap" textFill="#333333" />
+                  <Button fx:id="kayitButton" mnemonicParsing="false" onAction="#kayitButtonclick" prefHeight="30.0" prefWidth="321.0" style="-fx-background-color: #FF7F50;" text="Kayıt Ol" textFill="#333333" />
+                  <Button fx:id="favButton" mnemonicParsing="false" onAction="#favButtonclick" prefHeight="30.0" prefWidth="322.0" style="-fx-background-color: transparent;" text="Favoriler" textFill="#333333" />
+               </children>
+            </VBox>
+         </right>
+         <bottom>
+            <HBox fillHeight="false" prefHeight="27.0" prefWidth="788.0" spacing="100.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="filtreButton" mnemonicParsing="false" onAction="#filtreButtonclick" prefHeight="30.0" prefWidth="290.0" style="-fx-background-color: transparant;" text="filtrele" textFill="#333333" />
+                  <Button fx:id="siralaButton" mnemonicParsing="false" onAction="#siralaButtonclick" prefHeight="30.0" prefWidth="334.0" style="-fx-background-color: transparant;" text="sırala" textFill="#333333" />
+                  <Button fx:id="ilanekButton" mnemonicParsing="false" onAction="#ilanekButtonclick" prefHeight="30.0" prefWidth="318.0" style="-fx-background-color: transparant;" text="ilan ekle" textFill="#333333" />
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+      <ListView layoutX="247.0" layoutY="259.0" prefHeight="589.0" prefWidth="746.0" style="-fx-background-color: #FF7F50;" AnchorPane.leftAnchor="247.0" />
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</AnchorPane>
