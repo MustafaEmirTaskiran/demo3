@@ -30,13 +30,13 @@ public class IlanekleController {
 
     // --- 3. OTOMOBİL ÖZEL ALANLARI ---
     @FXML private TextField tasitturuTextField; // FXML'de var
-    @FXML private TextField omarkaTextFied;    // FXML'de var (omarkaTextField olarak düzeltilmeli)
+    @FXML private TextField omarkaTextField;    // FXML'de var (omarkaTextField olarak düzeltilmeli)
     @FXML private TextField omodelTextField;   // FXML'de var
     @FXML private TextField vitesTextField;    // FXML'de var
     @FXML private TextArea oaciklamaTextArea; // FXML'de var
 
     // --- 4. TEKNOLOJİ ÖZEL ALANLARI ---
-    @FXML private TextField teknotürüTextField;
+    @FXML private TextField teknoturuTextField;
     @FXML private TextField tmarkaTextField;
     @FXML private TextField tmodelTextField;
     @FXML private TextArea taciklamaTextArea;
@@ -169,7 +169,7 @@ public class IlanekleController {
 
                 // Otomobil verileri
                 String tasitTuru = tasitturuTextField.getText();
-                String marka = omarkaTextFied.getText();
+                String marka = omarkaTextField.getText();
                 String model = omodelTextField.getText(); // FXML'de model yılı
                 String vites = vitesTextField.getText();
                 String aciklama = oaciklamaTextArea.getText();

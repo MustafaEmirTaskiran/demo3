@@ -1,18 +1,60 @@
 package org.example.demo3;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SpotalController {
+public class SpotalController implements Initializable {
+    @FXML
+    private ListView<Ilan> ilanListView;
+
+    // 2. İlanları tutacak olan ANA LİSTEMİZ bu
+    private ObservableList<Ilan> ilanListesi;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Listeyi hafızada oluştur
+        ilanListesi = FXCollections.observableArrayList();
+
+        // --- TEST VERİLERİ (SAHTE İLANLAR) ---
+        // Program çalıştığında liste boş görünmesin diye elle ekliyoruz
+        ilanListesi.add(new Ilan("Opel Astra 2000 Model", "450.000", "araba.png"));
+        ilanListesi.add(new Ilan("iPhone 13 Pro", "35.000", "telefon.png"));
+        ilanListesi.add(new Ilan("Matematik Özel Ders", "500", "kitap.png"));
+        ilanListesi.add(new Ilan("Kiralık Daire 2+1", "15.000", "ev.png"));
+        ilanListesi.add(new Ilan("Opel Astra 2000 Model", "450.000", "araba.png"));
+        ilanListesi.add(new Ilan("iPhone 13 Pro", "35.000", "telefon.png"));
+        ilanListesi.add(new Ilan("Matematik Özel Ders", "500", "kitap.png"));
+        ilanListesi.add(new Ilan("Kiralık Daire 2+1", "15.000", "ev.png"));
+
+        // 3. Listeyi ve Özel Tasarımı ListView'a Bağla
+        ilanListView.setItems(ilanListesi); // Verileri gönder
+        ilanListView.setCellFactory(param -> new IlanCell()); // Tasarımı gönder
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     @FXML private VBox tasitAltVBox;
 
     @FXML private Button giyimButton;
@@ -159,14 +201,9 @@ public class SpotalController {
             // Mevcut Scene'i al
             Scene currentScene = stage.getScene();
 
-            if (currentScene != null) {
-                // Scene zaten varsa, sadece kök (root) öğesini değiştir
-                currentScene.setRoot(root);
-            } else {
-                // Eğer Scene mevcut değilse (ki bu nadir olur), yeni Scene oluştur
-                Scene newScene = new Scene(root, stage.getWidth(), stage.getHeight());
-                stage.setScene(newScene);
-            }
+            Scene newScene = new Scene(root);
+            stage.setScene(newScene);
+            stage.show();
 
             stage.setTitle("Yeni İlan Ekle");
             // stage.show() çağrısına gerek yok, zaten görünür durumdadır.

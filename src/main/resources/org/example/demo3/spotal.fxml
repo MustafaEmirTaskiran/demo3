@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="939.0" prefWidth="1118.0" style="-fx-background-color: #B0E0E6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo3.SpotalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="1120.0" style="-fx-background-color: #B0E0E6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo3.SpotalController">
    <children>
       <VBox layoutX="21.0" layoutY="294.0" prefHeight="630.0" prefWidth="150.0" style="-fx-background-color: #F8F8F8;">
          <children>
@@ -82,7 +82,7 @@
             </HBox>
          </bottom>
       </BorderPane>
-      <ListView layoutX="247.0" layoutY="259.0" prefHeight="589.0" prefWidth="746.0" style="-fx-background-color: #FF7F50;" AnchorPane.leftAnchor="247.0" />
+      <ListView fx:id="ilanListView" layoutX="247.0" layoutY="259.0" prefHeight="589.0" prefWidth="746.0" style="-fx-background-color: #FF7F50;" AnchorPane.leftAnchor="247.0" />
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

@@ -10,18 +10,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="549.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo3.IlanekleController">
+<AnchorPane prefHeight="880.0" prefWidth="1052.0" style="-fx-background-color: #B0E0E6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo3.IlanekleController">
    <children>
-      <VBox prefHeight="166.0" prefWidth="317.0" style="-fx-background-color: red;">
+      <VBox prefHeight="166.0" prefWidth="317.0" style="-fx-background-color: #B0E0E6;">
          <children>
             <Label text="Katogeri Seçiniz" />
-            <ComboBox fx:id="katogoriSecici" prefHeight="28.0" prefWidth="134.0" promptText="Katogeriler" />
+            <ComboBox fx:id="kategoriSecici" prefHeight="28.0" prefWidth="134.0" promptText="Katogeriler" />
             <Label text="Fiyat" />
-            <TextField fx:id="fiyatTextField" style="-fx-background-color: blue;" />
+            <TextField fx:id="fiyatTextField" prefHeight="26.0" prefWidth="265.0" style="-fx-background-color: white;" />
             <HBox prefHeight="38.0" prefWidth="302.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="87.0" text="Resim Yolu" />
-                  <TextField fx:id="resimyoluTextField" style="-fx-background-color: blue;">
+                  <TextField fx:id="resimyoluTextField" style="-fx-background-color: white;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -32,11 +32,11 @@
             <Button mnemonicParsing="false" onAction="#ilanPaylas" prefHeight="31.0" prefWidth="85.0" text="İlanı Paylaş" />
          </children>
       </VBox>
-      <AnchorPane fx:id="dinamikFormKonteyniri" layoutY="166.0" prefHeight="341.0" prefWidth="632.0">
+      <AnchorPane fx:id="dinamikFormKonteyniri" layoutY="166.0" prefHeight="623.0" prefWidth="879.0">
          <children>
-            <HBox layoutX="14.0" layoutY="14.0" prefHeight="244.0" prefWidth="597.0">
+            <HBox layoutX="14.0" layoutY="14.0" prefHeight="603.0" prefWidth="1041.0">
                <children>
-                  <VBox fx:id="otomobilFormVBox" prefHeight="376.0" prefWidth="123.0">
+                  <VBox fx:id="otomobilFormVBox" prefHeight="603.0" prefWidth="238.0">
                      <children>
                         <Label text="Taşıt Türü" />
                         <TextField fx:id="tasitturuTextField" />
@@ -50,10 +50,10 @@
                         <TextArea fx:id="oaciklamaTextArea" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </VBox>
-                  <VBox fx:id="teknoFormVBox" prefHeight="376.0" prefWidth="126.0">
+                  <VBox fx:id="teknoFormVBox" prefHeight="603.0" prefWidth="233.0">
                      <children>
                         <Label text="Teknoljik Eşya Türü" />
-                        <TextField fx:id="teknotürüTextField" />
+                        <TextField fx:id="teknoturuTextField" />
                         <Label text="Marka" />
                         <TextField fx:id="tmarkaTextField" />
                         <Label text="model" />
@@ -63,7 +63,7 @@
                         <TextArea fx:id="taciklamaTextArea" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </VBox>
-                  <VBox fx:id="giyimFormVBox" prefHeight="244.0" prefWidth="105.0">
+                  <VBox fx:id="giyimFormVBox" prefHeight="603.0" prefWidth="217.0">
                      <children>
                         <Label text="Giyim Türü" />
                         <TextField fx:id="giyimturTextField" />
@@ -79,7 +79,7 @@
                         <TextArea fx:id="kaciklamaTextArea" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </VBox>
-                  <VBox fx:id="konutFormVBox" prefHeight="244.0" prefWidth="101.0">
+                  <VBox fx:id="konutFormVBox" prefHeight="603.0" prefWidth="207.0">
                      <children>
                         <Label text="Konut Tipi" />
                         <TextField fx:id="konuttipiTextField" />
@@ -99,7 +99,7 @@
                         <TextArea fx:id="aciklamaTextArea" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </VBox>
-                  <VBox fx:id="dersFormVBox" prefHeight="244.0" prefWidth="105.0">
+                  <VBox fx:id="dersFormVBox" prefHeight="603.0" prefWidth="231.0">
                      <children>
                         <Label text="Ders Türü" />
                         <TextField fx:id="dersturuTextField" />
