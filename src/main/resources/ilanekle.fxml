@@ -40,6 +40,10 @@
                      <children>
                         <Label text="Taşıt Türü" />
                         <TextField fx:id="tasitturuTextField" />
+                        <Label text="Yakıt Tipi" />
+                        <TextField fx:id="yakittipiTextField" />
+                        <Label text="Kilometre" />
+                        <TextField fx:id="kilometreTextField" />
                         <Label text="Marka" />
                         <TextField fx:id="omarkaTextFied" />
                         <Label text="Model yılı" />

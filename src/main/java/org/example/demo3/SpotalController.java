@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -21,27 +23,46 @@ public class SpotalController implements Initializable {
     private ListView<Ilan> ilanListView;
 
     // 2. İlanları tutacak olan ANA LİSTEMİZ bu
-    private ObservableList<Ilan> ilanListesi;
+    private ObservableList<Ilan> tumIlanlarListesi;
+    private ObservableList<Ilan> gosterilenListe;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Listeyi hafızada oluştur
-        ilanListesi = FXCollections.observableArrayList();
+        tumIlanlarListesi = FXCollections.observableArrayList();
 
         // --- TEST VERİLERİ (SAHTE İLANLAR) ---
         // Program çalıştığında liste boş görünmesin diye elle ekliyoruz
-        ilanListesi.add(new Ilan("Opel Astra 2000 Model", "450.000", "araba.png"));
-        ilanListesi.add(new Ilan("iPhone 13 Pro", "35.000", "telefon.png"));
-        ilanListesi.add(new Ilan("Matematik Özel Ders", "500", "kitap.png"));
-        ilanListesi.add(new Ilan("Kiralık Daire 2+1", "15.000", "ev.png"));
-        ilanListesi.add(new Ilan("Opel Astra 2000 Model", "450.000", "araba.png"));
-        ilanListesi.add(new Ilan("iPhone 13 Pro", "35.000", "telefon.png"));
-        ilanListesi.add(new Ilan("Matematik Özel Ders", "500", "kitap.png"));
-        ilanListesi.add(new Ilan("Kiralık Daire 2+1", "15.000", "ev.png"));
+        tumIlanlarListesi.add(new Tasit("Opel Astra 2000 Model", "450.000", "araba.png" , "Taşıt", 2019,"otomobil"));
+        tumIlanlarListesi.add(new Tasit("iPhone 13 Pro", "35.000", "telefon.png" , "Taşıt",2014,"motorsiklet"));
+        tumIlanlarListesi.add(new Konut("Matematik Özel Ders", "500", "kitap.png" ,"arsa", "3 + 1",90));
+        tumIlanlarListesi.add(new Konut("Kiralık Daire 2+1", "15.000", "ev.png" , "Konut","daire",80));
+
 
         // 3. Listeyi ve Özel Tasarımı ListView'a Bağla
-        ilanListView.setItems(ilanListesi); // Verileri gönder
+        ilanListView.setItems(tumIlanlarListesi); // Verileri gönder
         ilanListView.setCellFactory(param -> new IlanCell()); // Tasarımı gönder
+        favButton.setOnAction(event -> {
+            if (favButton.isSelected()) {
+                // Sadece favori olanları ayıkla
+                ObservableList<Ilan> sadeceFavoriler = FXCollections.observableArrayList();
+                for (Ilan ilan : tumIlanlarListesi) {
+                    if (ilan.isFavoriMi()) { // Ilan sınıfında bu kontrol olmalı
+                        sadeceFavoriler.add(ilan);
+                    }
+                }
+                // Listeyi güncelle
+                ilanListView.setItems(sadeceFavoriler);
+                favButton.setText("Tüm İlanları Göster");
+            } else {
+                // Tekrar hepsini göster
+                ilanListView.setItems(tumIlanlarListesi);
+                favButton.setText("Sadece Favoriler");
+            }
+        });
+
+
+
     }
 
 
@@ -57,8 +78,7 @@ public class SpotalController implements Initializable {
 
     @FXML private VBox tasitAltVBox;
 
-    @FXML private Button giyimButton;
-    @FXML protected void giyimButtonclick() {}
+
 
     @FXML private Button tasitButton;
     @FXML
@@ -86,9 +106,16 @@ public class SpotalController implements Initializable {
     @FXML
     protected void digerButtonclick(){}
 
+    @FXML private VBox konutAltVBox;
+
     @FXML private Button konutButton;
     @FXML
-    protected void konutButtonclick(){}
+    protected void konutButtonclick(ActionEvent event) {
+        boolean isVisible = konutAltVBox.isVisible();
+        konutAltVBox.setVisible(!isVisible);
+        konutAltVBox.setManaged(!isVisible);
+        System.out.println("konutButtonclick");
+    }
 
     @FXML private Button arsaButton;
     @FXML
@@ -102,9 +129,15 @@ public class SpotalController implements Initializable {
     @FXML
     protected void mustakilButtonclick(){}
 
+    @FXML VBox teknoAltVBox;
     @FXML private Button teknoButton;
     @FXML
-    protected void teknoButtonclick(){}
+    protected void teknoButtonclick(ActionEvent event) {
+        boolean isVisible = teknoAltVBox.isVisible();
+        teknoAltVBox.setVisible(!isVisible);
+        teknoAltVBox.setManaged(!isVisible);
+        System.out.println("teknoButtonclick");
+    }
 
     @FXML private Button ceptelefonuButton;
     @FXML
@@ -122,9 +155,15 @@ public class SpotalController implements Initializable {
     @FXML
     protected void cpequiptButtonclick(){}
 
+    @FXML VBox ozeldersAltVBox;
     @FXML private Button ozeldersButton;
     @FXML
-    protected void ozeldersButtonclick(){}
+    protected void ozeldersButtonclick(ActionEvent event) {
+        boolean isVisible = ozeldersAltVBox.isVisible();
+        ozeldersAltVBox.setVisible(!isVisible);
+        ozeldersAltVBox.setManaged(!isVisible);
+        System.out.println("ozeldersButtonclick");
+    }
 
     @FXML private Button arasinifButton;
     @FXML
@@ -133,6 +172,15 @@ public class SpotalController implements Initializable {
     @FXML private Button tytButton;
     @FXML
     protected void tytButtonclick(){}
+
+    @FXML VBox giyimAltVBox;
+    @FXML private Button giyimButton;
+    @FXML protected void giyimButtonclick(ActionEvent event) {
+        boolean isVisible = giyimAltVBox.isVisible();
+        giyimAltVBox.setVisible(!isVisible);
+        giyimAltVBox.setManaged(!isVisible);
+        System.out.println("giyimButtonclick");
+    }
 
     @FXML private Button ustgiyimButton;
     @FXML
@@ -171,9 +219,8 @@ public class SpotalController implements Initializable {
     @FXML
     protected void girisButtonclick(){}
 
-    @FXML private Button favButton;
-    @FXML
-    protected void favButtonclick(){}
+    @FXML private ToggleButton favButton;
+
 
     @FXML private Button filtreButton;
     @FXML

@@ -1,16 +1,30 @@
 package org.example.demo3;
 
-public class Ilan {
+public abstract class Ilan {
+    private int id;
    private String baslik;
    private String fiyat;
    private String resimyolu;
    private boolean favoriMi;
+   private String kategori;
+   private String altKategori;
 
-   public Ilan(String baslik, String fiyat, String resimyolu) {
+
+   public Ilan(String baslik, String fiyat, String resimyolu , String kategori , String altKategori) {
        this.baslik = baslik;
        this.fiyat = fiyat;
        this.resimyolu = resimyolu;
        this.favoriMi = false;
+       this.kategori = kategori;
+       this.altKategori = altKategori;
+   }
+
+   public String getAltKategori() {
+       return altKategori;
+   }
+
+   public String getKatogerikatogeri(){
+       return kategori;
    }
    public String getBaslik() {
        return baslik;

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -27,20 +28,36 @@
                </children>
             </VBox>
             <Button fx:id="konutButton" mnemonicParsing="false" onAction="#konutButtonclick" prefHeight="29.0" prefWidth="119.0" style="-fx-background-color: transparant;" text="Konut" textFill="#333333" />
-            <Button fx:id="daireButton" mnemonicParsing="false" onAction="#daireButtonclick" style="-fx-background-color: transparant;" text="daire" textFill="#333333" />
-            <Button fx:id="arsaButton" mnemonicParsing="false" onAction="#arsaButtonclick" style="-fx-background-color: transparant;" text="arsa" textFill="#333333" />
-            <Button fx:id="mustakilButton" mnemonicParsing="false" onAction="#mustakilButtonclick" style="-fx-background-color: transparant;" text="müstakil" textFill="#333333" />
+            <VBox fx:id="konutAltVBox" managed="false" prefHeight="126.0" prefWidth="150.0" visible="false">
+               <children>
+                  <Button fx:id="daireButton" mnemonicParsing="false" onAction="#daireButtonclick" style="-fx-background-color: transparant;" text="daire" textFill="#333333" />
+                  <Button fx:id="arsaButton" mnemonicParsing="false" onAction="#arsaButtonclick" style="-fx-background-color: transparant;" text="arsa" textFill="#333333" />
+                  <Button fx:id="mustakilButton" mnemonicParsing="false" onAction="#mustakilButtonclick" style="-fx-background-color: transparant;" text="müstakil" textFill="#333333" />
+               </children>
+            </VBox>
             <Button fx:id="teknoButton" mnemonicParsing="false" onAction="#teknoButtonclick" prefHeight="30.0" prefWidth="149.0" style="-fx-background-color: transparant;" text="Teknoloji" textFill="#333333" />
-            <Button fx:id="ceptelefonuButton" mnemonicParsing="false" onAction="#ceptelefonuButtonclick" style="-fx-background-color: transparant;" text="cep telefonu" textFill="#333333" />
-            <Button fx:id="bilgisayaraButton" mnemonicParsing="false" onAction="#bilgisayaraButtonclick" style="-fx-background-color: transparant;" text="bilgisayar" textFill="#333333" />
-            <Button fx:id="beyazesyaButton" mnemonicParsing="false" onAction="#beyazesyaButtonclick" style="-fx-background-color: transparant;" text="beyaz eşya" textFill="#333333" />
-            <Button fx:id="cpequiptButton" mnemonicParsing="false" onAction="#cpequiptButtonclick" style="-fx-background-color: transparant;" text="bilgisayar ekipmanları" textFill="#333333" />
+            <VBox fx:id="teknoAltVBox" managed="false" visible="false">
+               <children>
+                  <Button fx:id="ceptelefonuButton" mnemonicParsing="false" onAction="#ceptelefonuButtonclick" style="-fx-background-color: transparant;" text="cep telefonu" textFill="#333333" />
+                  <Button fx:id="bilgisayaraButton" mnemonicParsing="false" onAction="#bilgisayaraButtonclick" style="-fx-background-color: transparant;" text="bilgisayar" textFill="#333333" />
+                  <Button fx:id="beyazesyaButton" mnemonicParsing="false" onAction="#beyazesyaButtonclick" style="-fx-background-color: transparant;" text="beyaz eşya" textFill="#333333" />
+                  <Button fx:id="cpequiptButton" mnemonicParsing="false" onAction="#cpequiptButtonclick" style="-fx-background-color: transparant;" text="bilgisayar ekipmanları" textFill="#333333" />
+               </children>
+            </VBox>
             <Button fx:id="ozeldersButton" mnemonicParsing="false" onAction="#ozeldersButtonclick" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: transparant;" text="özel ders" textFill="#333333" />
-            <Button fx:id="tytButton" mnemonicParsing="false" onAction="#tytButtonclick" style="-fx-background-color: transparant;" text="tyt - ayt- lgs" textFill="#333333" />
-            <Button fx:id="arasinifButton" mnemonicParsing="false" onAction="#arasinifButtonclick" style="-fx-background-color: transparant;" text="ara sınıf" textFill="#333333" />
+            <VBox fx:id="ozeldersAltVBox" managed="false" visible="false">
+               <children>
+                  <Button fx:id="tytButton" mnemonicParsing="false" onAction="#tytButtonclick" style="-fx-background-color: transparant;" text="tyt - ayt- lgs" textFill="#333333" />
+                  <Button fx:id="arasinifButton" mnemonicParsing="false" onAction="#arasinifButtonclick" style="-fx-background-color: transparant;" text="ara sınıf" textFill="#333333" />
+               </children>
+            </VBox>
             <Button fx:id="giyimButton" mnemonicParsing="false" onAction="#giyimButtonclick" prefHeight="30.0" prefWidth="153.0" style="-fx-background-color: transparant;" text="Giyim" textFill="#333333" />
-            <Button fx:id="ustgiyimButton" mnemonicParsing="false" onAction="#ustgiyimButtonclick" style="-fx-background-color: transparant;" text="üst giyim" textFill="#333333" />
-            <Button fx:id="altgiyimButton" mnemonicParsing="false" onAction="#altgiyimButtonclick" style="-fx-background-color: transparant;" text="alt giyim" textFill="#333333" />
+            <VBox fx:id="giyimAltVBox" managed="false" visible="false">
+               <children>
+                  <Button fx:id="ustgiyimButton" mnemonicParsing="false" onAction="#ustgiyimButtonclick" style="-fx-background-color: transparant;" text="üst giyim" textFill="#333333" />
+                  <Button fx:id="altgiyimButton" mnemonicParsing="false" onAction="#altgiyimButtonclick" style="-fx-background-color: transparant;" text="alt giyim" textFill="#333333" />
+               </children>
+            </VBox>
          </children>
       </VBox>
       <BorderPane layoutY="-3.0" prefHeight="228.0" prefWidth="1119.0" style="-fx-background-color: #B0E0E6;" AnchorPane.bottomAnchor="714.0" AnchorPane.topAnchor="-3.0">
@@ -68,7 +85,7 @@
                   </HBox>
                   <Button fx:id="girisButton" mnemonicParsing="false" onAction="#girisButtonclick" prefHeight="30.0" prefWidth="320.0" style="-fx-background-color: transparent;" text="Giriş Yap" textFill="#333333" />
                   <Button fx:id="kayitButton" mnemonicParsing="false" onAction="#kayitButtonclick" prefHeight="30.0" prefWidth="321.0" style="-fx-background-color: #FF7F50;" text="Kayıt Ol" textFill="#333333" />
-                  <Button fx:id="favButton" mnemonicParsing="false" onAction="#favButtonclick" prefHeight="30.0" prefWidth="322.0" style="-fx-background-color: transparent;" text="Favoriler" textFill="#333333" />
+                  <Button fx:id="ilanekButton" mnemonicParsing="false" onAction="#ilanekButtonclick" prefHeight="30.0" prefWidth="318.0" style="-fx-background-color: transparant;" text="ilan ekle" textFill="#333333" />
                </children>
             </VBox>
          </right>
@@ -77,7 +94,7 @@
                <children>
                   <Button fx:id="filtreButton" mnemonicParsing="false" onAction="#filtreButtonclick" prefHeight="30.0" prefWidth="290.0" style="-fx-background-color: transparant;" text="filtrele" textFill="#333333" />
                   <Button fx:id="siralaButton" mnemonicParsing="false" onAction="#siralaButtonclick" prefHeight="30.0" prefWidth="334.0" style="-fx-background-color: transparant;" text="sırala" textFill="#333333" />
-                  <Button fx:id="ilanekButton" mnemonicParsing="false" onAction="#ilanekButtonclick" prefHeight="30.0" prefWidth="318.0" style="-fx-background-color: transparant;" text="ilan ekle" textFill="#333333" />
+                  <ToggleButton fx:id="favButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="243.0" style="-fx-background-color: transparant;" text="Favorileri Görüntüle" />
                </children>
             </HBox>
          </bottom>

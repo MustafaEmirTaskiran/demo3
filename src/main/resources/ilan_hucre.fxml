@@ -13,8 +13,8 @@
       <Label fx:id="ihBaslikLabel" layoutX="229.0" layoutY="16.0" prefHeight="21.0" prefWidth="180.0" text="Label" />
       <Label fx:id="ihFiyatLabel" layoutX="229.0" layoutY="52.0" prefHeight="21.0" prefWidth="51.0" text="Label" />
       <Button fx:id="ihIlaniInceleButton" layoutX="567.0" layoutY="21.0" mnemonicParsing="false" text="İlanı İncele" />
-      <ToggleButton fx:id="favEkleToggleButton" layoutX="571.0" layoutY="66.0" minWidth="41.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="41.0" style="-fx-background-color: transparant;" />
-      <ImageView fitHeight="20.0" fitWidth="41.0" layoutX="579.0" layoutY="67.0" pickOnBounds="true" smooth="false" style="-fx-focus-traversable: on;">
+      <ToggleButton fx:id="favEkleToggleButton" layoutX="571.0" layoutY="66.0" minWidth="41.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" style="-fx-background-color: red;" />
+      <ImageView fitHeight="20.0" fitWidth="41.0" layoutX="587.0" layoutY="72.0" pickOnBounds="true" smooth="false" style="-fx-focus-traversable: on;">
          <image>
             <Image url="@../../../../../Downloads/Gemini_Generated_Image_8w1dxf8w1dxf8w1d.png" />
          </image>

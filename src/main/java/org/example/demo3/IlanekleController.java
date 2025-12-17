@@ -14,7 +14,10 @@ import java.io.IOException;
 
 public class IlanekleController {
     @FXML
-    protected void gozatButton(){}
+    protected void gozatButton(){
+
+
+    }
     // --- 1. ORTAK FXML ALANLARI (Kırmızı VBox) ---
     @FXML private ComboBox<String> kategoriSecici; // FXML'de katogeriSecici olarak görünüyor, Java'da düzeltildi
     @FXML private TextField baslikTextField;
@@ -29,6 +32,8 @@ public class IlanekleController {
     @FXML private VBox dersFormVBox;
 
     // --- 3. OTOMOBİL ÖZEL ALANLARI ---
+    @FXML private TextField yakittipiTextField;
+    @FXML private TextField kilometreTextField;
     @FXML private TextField tasitturuTextField; // FXML'de var
     @FXML private TextField omarkaTextField;    // FXML'de var (omarkaTextField olarak düzeltilmeli)
     @FXML private TextField omodelTextField;   // FXML'de var
