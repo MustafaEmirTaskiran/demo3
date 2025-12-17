@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -68,7 +69,7 @@
                   </HBox>
                   <Button fx:id="girisButton" mnemonicParsing="false" onAction="#girisButtonclick" prefHeight="30.0" prefWidth="320.0" style="-fx-background-color: transparent;" text="Giriş Yap" textFill="#333333" />
                   <Button fx:id="kayitButton" mnemonicParsing="false" onAction="#kayitButtonclick" prefHeight="30.0" prefWidth="321.0" style="-fx-background-color: #FF7F50;" text="Kayıt Ol" textFill="#333333" />
-                  <Button fx:id="favButton" mnemonicParsing="false" onAction="#favButtonclick" prefHeight="30.0" prefWidth="322.0" style="-fx-background-color: transparent;" text="Favoriler" textFill="#333333" />
+                  <Button fx:id="ilanekButton" mnemonicParsing="false" onAction="#ilanekButtonclick" prefHeight="30.0" prefWidth="318.0" style="-fx-background-color: transparant;" text="ilan ekle" textFill="#333333" />
                </children>
             </VBox>
          </right>
@@ -77,7 +78,7 @@
                <children>
                   <Button fx:id="filtreButton" mnemonicParsing="false" onAction="#filtreButtonclick" prefHeight="30.0" prefWidth="290.0" style="-fx-background-color: transparant;" text="filtrele" textFill="#333333" />
                   <Button fx:id="siralaButton" mnemonicParsing="false" onAction="#siralaButtonclick" prefHeight="30.0" prefWidth="334.0" style="-fx-background-color: transparant;" text="sırala" textFill="#333333" />
-                  <Button fx:id="ilanekButton" mnemonicParsing="false" onAction="#ilanekButtonclick" prefHeight="30.0" prefWidth="318.0" style="-fx-background-color: transparant;" text="ilan ekle" textFill="#333333" />
+                  <ToggleButton fx:id="favButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="243.0" style="-fx-background-color: transparant;" text="Favorileri Görüntüle" />
                </children>
             </HBox>
          </bottom>

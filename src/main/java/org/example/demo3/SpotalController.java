@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -21,27 +23,49 @@ public class SpotalController implements Initializable {
     private ListView<Ilan> ilanListView;
 
     // 2. İlanları tutacak olan ANA LİSTEMİZ bu
-    private ObservableList<Ilan> ilanListesi;
+    private ObservableList<Ilan> tumIlanlarListesi;
+    private ObservableList<Ilan> gosterilenListe;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Listeyi hafızada oluştur
-        ilanListesi = FXCollections.observableArrayList();
+        tumIlanlarListesi = FXCollections.observableArrayList();
 
         // --- TEST VERİLERİ (SAHTE İLANLAR) ---
         // Program çalıştığında liste boş görünmesin diye elle ekliyoruz
-        ilanListesi.add(new Ilan("Opel Astra 2000 Model", "450.000", "araba.png"));
-        ilanListesi.add(new Ilan("iPhone 13 Pro", "35.000", "telefon.png"));
-        ilanListesi.add(new Ilan("Matematik Özel Ders", "500", "kitap.png"));
-        ilanListesi.add(new Ilan("Kiralık Daire 2+1", "15.000", "ev.png"));
-        ilanListesi.add(new Ilan("Opel Astra 2000 Model", "450.000", "araba.png"));
-        ilanListesi.add(new Ilan("iPhone 13 Pro", "35.000", "telefon.png"));
-        ilanListesi.add(new Ilan("Matematik Özel Ders", "500", "kitap.png"));
-        ilanListesi.add(new Ilan("Kiralık Daire 2+1", "15.000", "ev.png"));
+        tumIlanlarListesi.add(new Ilan("Opel Astra 2000 Model", "450.000", "araba.png"));
+        tumIlanlarListesi.add(new Ilan("iPhone 13 Pro", "35.000", "telefon.png"));
+        tumIlanlarListesi.add(new Ilan("Matematik Özel Ders", "500", "kitap.png"));
+        tumIlanlarListesi.add(new Ilan("Kiralık Daire 2+1", "15.000", "ev.png"));
+        tumIlanlarListesi.add(new Ilan("Opel Astra 2000 Model", "450.000", "araba.png"));
+        tumIlanlarListesi.add(new Ilan("iPhone 13 Pro", "35.000", "telefon.png"));
+        tumIlanlarListesi.add(new Ilan("Matematik Özel Ders", "500", "kitap.png"));
+        tumIlanlarListesi.add(new Ilan("Kiralık Daire 2+1", "15.000", "ev.png"));
 
         // 3. Listeyi ve Özel Tasarımı ListView'a Bağla
-        ilanListView.setItems(ilanListesi); // Verileri gönder
+        ilanListView.setItems(tumIlanlarListesi); // Verileri gönder
         ilanListView.setCellFactory(param -> new IlanCell()); // Tasarımı gönder
+        favButton.setOnAction(event -> {
+            if (favButton.isSelected()) {
+                // Sadece favori olanları ayıkla
+                ObservableList<Ilan> sadeceFavoriler = FXCollections.observableArrayList();
+                for (Ilan ilan : tumIlanlarListesi) {
+                    if (ilan.isFavoriMi()) { // Ilan sınıfında bu kontrol olmalı
+                        sadeceFavoriler.add(ilan);
+                    }
+                }
+                // Listeyi güncelle
+                ilanListView.setItems(sadeceFavoriler);
+                favButton.setText("Tüm İlanları Göster");
+            } else {
+                // Tekrar hepsini göster
+                ilanListView.setItems(tumIlanlarListesi);
+                favButton.setText("Sadece Favoriler");
+            }
+        });
+
+
+
     }
 
 
@@ -171,9 +195,7 @@ public class SpotalController implements Initializable {
     @FXML
     protected void girisButtonclick(){}
 
-    @FXML private Button favButton;
-    @FXML
-    protected void favButtonclick(){}
+    @FXML private ToggleButton favButton;
 
     @FXML private Button filtreButton;
     @FXML
