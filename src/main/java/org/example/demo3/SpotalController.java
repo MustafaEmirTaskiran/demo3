@@ -63,13 +63,6 @@ public class SpotalController implements Initializable {
 
 
 
-
-
-
-
-
-
-
     @FXML private VBox tasitAltVBox;
 
 
