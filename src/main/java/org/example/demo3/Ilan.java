@@ -3,27 +3,37 @@ package org.example.demo3;
 public abstract class Ilan {
     private int id;
    private String baslik;
-   private String fiyat;
+   private double fiyat;
    private String resimyolu;
    private boolean favoriMi;
    private String kategori;
    private String altKategori;
+   private String aciklama;
 
 
-   public Ilan(String baslik, String fiyat, String resimyolu , String kategori , String altKategori) {
+   public Ilan(String baslik, double fiyat, String resimyolu , String kategori ,  String aciklama) {
        this.baslik = baslik;
        this.fiyat = fiyat;
        this.resimyolu = resimyolu;
        this.favoriMi = false;
        this.kategori = kategori;
        this.altKategori = altKategori;
+       this.aciklama = aciklama;
+   }
+
+
+   public int getId() {
+       return id;
+   }
+   public void setId(int id) {
+       this.id = id;
    }
 
    public String getAltKategori() {
        return altKategori;
    }
 
-   public String getKatogerikatogeri(){
+   public String getkategori(){
        return kategori;
    }
    public String getBaslik() {
@@ -32,10 +42,10 @@ public abstract class Ilan {
    public void setBaslik(String baslik) {
        this.baslik = baslik;
    }
-   public String getFiyat() {
+   public double getFiyat() {
        return fiyat;
    }
-   public void setFiyat(String fiyat) {
+   public void setFiyat(double fiyat) {
        this.fiyat = fiyat;
    }
    public String getResimyolu() {
@@ -50,4 +60,10 @@ public abstract class Ilan {
    public void setFavoriMi(boolean favoriMi) {
        this.favoriMi = favoriMi;
    }
+    public String getAciklama() {
+       return aciklama;
+    }
+    public void setAciklama(String aciklama) {
+       this.aciklama = aciklama;
+    }
 }

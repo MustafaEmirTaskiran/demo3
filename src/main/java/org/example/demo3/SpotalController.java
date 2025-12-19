@@ -31,12 +31,6 @@ public class SpotalController implements Initializable {
         // Listeyi hafızada oluştur
         tumIlanlarListesi = FXCollections.observableArrayList();
 
-        // --- TEST VERİLERİ (SAHTE İLANLAR) ---
-        // Program çalıştığında liste boş görünmesin diye elle ekliyoruz
-        tumIlanlarListesi.add(new Tasit("Opel Astra 2000 Model", "450.000", "araba.png" , "Taşıt", 2019,"otomobil"));
-        tumIlanlarListesi.add(new Tasit("iPhone 13 Pro", "35.000", "telefon.png" , "Taşıt",2014,"motorsiklet"));
-        tumIlanlarListesi.add(new Konut("Matematik Özel Ders", "500", "kitap.png" ,"arsa", "3 + 1",90));
-        tumIlanlarListesi.add(new Konut("Kiralık Daire 2+1", "15.000", "ev.png" , "Konut","daire",80));
 
 
         // 3. Listeyi ve Özel Tasarımı ListView'a Bağla
