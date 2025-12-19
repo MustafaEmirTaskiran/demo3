@@ -249,7 +249,8 @@ public class SpotalController implements Initializable {
         }
     }
 
-    }
+}
+
 
 
 
