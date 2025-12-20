@@ -1,11 +1,459 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: f4f4f4;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+<AnchorPane prefHeight="800.0" prefWidth="900.0" style="-fx-background-color: #B0E0E6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo3.IlanDetayController">
    <children>
-      <ImageView fitHeight="308.0" fitWidth="302.0" layoutX="14.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="10.0" layoutY="16.0" mnemonicParsing="false" onAction="#igGeriDon" prefHeight="41.0" prefWidth="128.0" text="Geri Dön" />
+      <Label fx:id="igBaslik" layoutX="241.0" layoutY="19.0" prefHeight="37.0" prefWidth="425.0" text="Label">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="88.0" text="fiyat : ">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="igFiyat" layoutX="140.0" layoutY="87.0" prefHeight="30.0" prefWidth="121.0" text="Label">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutY="135.0" prefHeight="262.0" prefWidth="901.0">
+         <content>
+            <HBox fx:id="igResimEkle" prefHeight="100.0" prefWidth="200.0" />
+         </content>
+      </ScrollPane>
+      <TextArea fx:id="igAciklama" editable="false" layoutY="398.0" prefHeight="148.0" prefWidth="898.0" />
+      <StackPane layoutY="599.0" prefHeight="186.0" prefWidth="900.0" style="-fx-background-color: White;">
+         <children>
+            <VBox fx:id="igVBoxTasit" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" visible="false">
+               <children>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Taşıt Türü :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igTasitTur" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Marka :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igOMarka" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Model :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igOModel" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Kilometre :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igKilometre" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Model Yılı :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igOModelyili" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Yakıt Tipi :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igYakitTipi" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Vites Tipi  :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igVitesTipi" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="igVBoxKonut" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" visible="false">
+               <children>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Konut Tipi :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igKonutTipi" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Yapım Yılı  :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igYapimYili" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Oda Sayısı :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igOdaSayisi" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Şehir :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igSehir" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="İlçe :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igIlce" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Mahalle :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igMahalle" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Sokak :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igSokak" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="igVBoxTeknoloji" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" visible="false">
+               <children>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="216.0" text="Teknolojik Eşya Tipi :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igTeknoTipi" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="216.0" text="Marka :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igTeknoMarka" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="216.0" text="Model :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igTeknoModel" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="igVBoxGiyim" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" visible="false">
+               <children>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Giysi Tipi :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igGiysiTipi" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Marka :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igGiysiMarka" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Beden :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igGiysiBeden" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Aşınma Miktarı :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igAsinmaMiktari" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Cinsiyet :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igCinsiyet" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="igVBoxOzelders" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" visible="false">
+               <children>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Ders Türü :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igDersTipi" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="900.0">
+                     <children>
+                        <Label prefWidth="150.0" text="Eğitim Seviyesi :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="igEgitimSeviyesi" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

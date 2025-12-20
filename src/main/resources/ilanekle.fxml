@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="880.0" prefWidth="1052.0" style="-fx-background-color: #B0E0E6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo3.IlanekleController">
    <children>
-      <VBox prefHeight="229.0" prefWidth="317.0" style="-fx-background-color: #B0E0E6;">
+      <VBox layoutX="73.0" layoutY="71.0" prefHeight="229.0" prefWidth="317.0" style="-fx-background-color: #B0E0E6;">
          <children>
             <Label text="İlan Başlığı" />
             <TextField fx:id="baslikTextField" />
@@ -48,8 +48,10 @@
                         <TextField fx:id="kilometreTextField" />
                         <Label text="Marka" />
                         <TextField fx:id="omarkaTextField" />
+                        <Label text="Model" />
+                        <TextField fx:id="oModelTextField" />
                         <Label text="Model yılı" />
-                        <TextField fx:id="omodelTextField" />
+                        <TextField fx:id="omodelyiliTextField" />
                         <Label text="Vites Türü" />
                         <TextField fx:id="vitesTextField" />
                         <Label text="Açıklama" />
@@ -90,7 +92,7 @@
                         <Label text="Ders Türü" />
                         <TextField fx:id="dersturuTextField" />
                         <Label text="Eğitim seviyesi" />
-                        <TextField fx:id="egitimseviyesiTextField" />
+                        <ComboBox fx:id="egitimSeviyesiComboBox" prefWidth="150.0" />
                         <Label text="Açıklama" />
                         <TextArea fx:id="dersTextArea" prefHeight="200.0" prefWidth="200.0" />
                      </children>
@@ -119,5 +121,6 @@
             </HBox>
          </children>
       </AnchorPane>
+      <Button fx:id="geridonButton" layoutX="-6.0" mnemonicParsing="false" onAction="#geridonButtonclick" prefHeight="37.0" prefWidth="100.0" text="Geri Dön" />
    </children>
 </AnchorPane>
