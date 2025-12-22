@@ -1,8 +1,12 @@
 package org.example.demo3;
 
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class VeriTabaniYoneticisi {
 
-    // Singleton Pattern (İsteğe bağlı ama önerilir, her yerden tek nesneye ulaşmak için)
     private static VeriTabaniYoneticisi instance;
 
     public static VeriTabaniYoneticisi getInstance() {
@@ -10,88 +14,170 @@ public class VeriTabaniYoneticisi {
         return instance;
     }
 
-    // --- 1. ANA TABLO (ILANLAR) KAYDI ---
-    // Bu metodu dışarıdan çağırmayacağız, alt metotlar bunu kullanacak.
-    private int anaIlanKaydet(Ilan ilan) {
-        int yeniId = -1;
-        System.out.println("Veritabanı: Ana İlan tablosuna kayıt yapılıyor... Başlık: " + ilan.getBaslik());
+    // --- ÖZEL YARDIMCI METOT: Önce 'Ilan' tablosuna kaydeder, ID'yi döndürür ---
+    private int anaIlanEkle(Connection conn, Ilan ilan, String turString) throws SQLException {
+        // Resimdeki dbo.Ilan tablosuna göre:
+        String sql = "INSERT INTO Ilan (KullaniciID, IlanTarihi, IlanTuru, IlanBaslik, IlanFiyat) VALUES (?, ?, ?, ?, ?)";
 
-        // ***************** ARKADAŞININ GÖREVİ *****************
-        // Buraya SQL INSERT komutu gelecek.
-        // Tablo: 'ilanlar' (id, baslik, fiyat, resim_yolu, kategori, aciklama)
-        // INSERT INTO ilanlar (...) VALUES (...)
-        // İşlem bitince veritabanının ürettiği ID'yi (Generated Key) 'yeniId' değişkenine atamalı.
-        // ******************************************************
+        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setInt(1, 1); // Şimdilik Kullanıcı ID'yi 1 varsayıyoruz
+            stmt.setDate(2, Date.valueOf(LocalDate.now()));
+            stmt.setString(3, turString);
+            stmt.setString(4, ilan.getBaslik());
+            stmt.setDouble(5, ilan.getFiyat()); // 'money' tipi double ile uyumludur
 
-        // Şimdilik test için rastgele bir ID döndürüyoruz
-        yeniId = (int) (Math.random() * 1000);
-        return yeniId;
+            stmt.executeUpdate();
+
+            // Oluşan ID'yi al
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) return rs.getInt(1);
+            }
+        }
+        return -1;
     }
 
-    // --- 2. TAŞIT EKLEME ---
+    // --- 1. TAŞIT EKLEME ---
     public void tasitEkle(Tasit tasit) {
-        int ilanId = anaIlanKaydet(tasit); // Önce ana tabloya kaydettik
+        // Resimdeki dbo.Tasit tablosu sütunları:
+        String sql = "INSERT INTO Tasit (IlanID, TasitTuru, TasitFiyati, TasitAciklamasi, TasitMarka, TasitModel, TasitVites, TasitFoto, TasitKilometre, TasitYakit, TasitModelYili) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
-        if (ilanId != -1) {
-            System.out.println("Veritabanı: Taşıt detayları ekleniyor... ID: " + ilanId);
+        try (Connection conn = VeritabaniBaglantisi.baglan()) {
+            conn.setAutoCommit(false); // Transaction Başlat
 
-            // ***************** ARKADAŞININ GÖREVİ *****************
-            // Tablo: 'tasitlar' (ilan_id, tasit_turu, yakit_tipi, kilometre, marka, model_yili, vites_turu)
-            // VALUES (ilanId, tasit.getTasitturu().toString(), tasit.getYakitTipi(), ...)
-            // ******************************************************
+            int ilanID = anaIlanEkle(conn, tasit, "Tasit");
+
+            if (ilanID != -1) {
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    stmt.setInt(1, ilanID);
+                    stmt.setString(2, tasit.getTasitturu().toString());
+                    stmt.setDouble(3, tasit.getFiyat());
+                    stmt.setString(4, tasit.getAciklama());
+                    stmt.setString(5, tasit.getMarka());
+                    stmt.setString(6, "-"); // Model bilgisini Tasit sınıfında tutmuyorsan tire koy
+                    stmt.setString(7, tasit.getVitesTuru());
+                    stmt.setString(8, tasit.getResimyolu());
+                    stmt.setInt(9, tasit.getKilometre());
+                    stmt.setString(10, tasit.getYakitTipi());
+                    stmt.setInt(11, tasit.getModelYili());
+
+                    stmt.executeUpdate();
+                    conn.commit(); // Onayla
+                    System.out.println("Taşıt SQL'e eklendi. ID: " + ilanID);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    // --- 3. KONUT EKLEME ---
+    // --- 2. KONUT EKLEME ---
     public void konutEkle(Konut konut) {
-        int ilanId = anaIlanKaydet(konut);
+        // Resimdeki dbo.Konut tablosu sütunları:
+        String sql = "INSERT INTO Konut (IlanID, KonutTuru, KonutInsaatYili, KonutOdaSayisi, KonutSehir, KonutIlce, KonutMahalle, KonutSokak, KonutFiyat, KonutAciklama, KonutFoto) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
-        if (ilanId != -1) {
-            System.out.println("Veritabanı: Konut detayları ekleniyor... ID: " + ilanId);
+        try (Connection conn = VeritabaniBaglantisi.baglan()) {
+            conn.setAutoCommit(false);
 
-            // ***************** ARKADAŞININ GÖREVİ *****************
-            // Tablo: 'konutlar' (ilan_id, konut_tipi, yapim_yili, oda_sayisi, sehir, ilce, mahalle...)
-            // VALUES (ilanId, konut.getKonuttipi().toString(), konut.getYapimYili(), ...)
-            // ******************************************************
+            int ilanID = anaIlanEkle(conn, konut, "Konut");
+
+            if (ilanID != -1) {
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    stmt.setInt(1, ilanID);
+                    stmt.setString(2, konut.getKonuttipi().toString());
+                    stmt.setInt(3, konut.getYapimYili());
+
+                    // DİKKAT: Veritabanında OdaSayısı 'int' ama Java'da 'String'.
+                    // "3+1" yazarsan veritabanı patlar. Şimdilik sadece rakam kısmını almaya çalışalım:
+                    try {
+                        stmt.setInt(4, Integer.parseInt(konut.getOdaSayisi().replaceAll("[^0-9]", "")));
+                    } catch (Exception e) { stmt.setInt(4, 0); }
+
+                    stmt.setString(5, konut.getSehir());
+                    stmt.setString(6, konut.getIlce());
+                    stmt.setString(7, konut.getMahalle());
+                    stmt.setString(8, konut.getSokak());
+                    stmt.setDouble(9, konut.getFiyat());
+                    stmt.setString(10, konut.getAciklama());
+                    stmt.setString(11, konut.getResimyolu());
+
+                    stmt.executeUpdate();
+                    conn.commit();
+                    System.out.println("Konut SQL'e eklendi.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    // --- 4. TEKNOLOJİ EKLEME ---
-    public void teknolojiEkle(Teknoloji teknoloji) {
-        int ilanId = anaIlanKaydet(teknoloji);
+    // --- 3. VERİLERİ ÇEKME (LİSTELEME) ---
+    public List<Ilan> tumIlanlariGetir() {
+        List<Ilan> liste = new ArrayList<>();
 
-        if (ilanId != -1) {
-            System.out.println("Veritabanı: Teknoloji detayları ekleniyor...");
+        // 1. TAŞITLARI ÇEK
+        String sqlTasit = "SELECT * FROM Ilan INNER JOIN Tasit ON Ilan.IlanID = Tasit.IlanID";
+        try (Connection conn = VeritabaniBaglantisi.baglan();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sqlTasit)) {
 
-            // ***************** ARKADAŞININ GÖREVİ *****************
-            // Tablo: 'teknoloji' (ilan_id, tur, marka, model)
-            // ******************************************************
-        }
+            while (rs.next()) {
+                // .trim() ÇOK ÖNEMLİ: SQL Server nchar boşluklarını temizler
+                Tasitturu tTur = Tasitturu.DIGER;
+                try {
+                    tTur = Tasitturu.valueOf(rs.getString("TasitTuru").trim());
+                } catch (Exception e) {}
+
+                Tasit t = new Tasit(
+                        rs.getString("IlanBaslik").trim(),
+                        rs.getDouble("IlanFiyat"),
+                        rs.getString("TasitFoto").trim(),
+                        "Otomobil",
+                        rs.getString("TasitAciklamasi").trim(),
+                        tTur,
+                        rs.getString("TasitYakit").trim(),
+                        rs.getInt("TasitKilometre"),
+                        rs.getString("TasitMarka").trim(),
+                        rs.getInt("TasitModelYili"),
+                        rs.getString("TasitVites").trim()
+                );
+                t.setId(rs.getInt("IlanID"));
+                liste.add(t);
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+
+        // 2. KONUTLARI ÇEK
+        String sqlKonut = "SELECT * FROM Ilan INNER JOIN Konut ON Ilan.IlanID = Konut.IlanID";
+        try (Connection conn = VeritabaniBaglantisi.baglan();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sqlKonut)) {
+
+            while (rs.next()) {
+                KonutturuEnum kTur = KonutturuEnum.DAIRE;
+                try {
+                    kTur = KonutturuEnum.valueOf(rs.getString("KonutTuru").trim());
+                } catch (Exception e) {}
+
+                Konut k = new Konut(
+                        rs.getString("IlanBaslik").trim(),
+                        rs.getDouble("IlanFiyat"),
+                        rs.getString("KonutFoto").trim(),
+                        "Konut",
+                        String.valueOf(rs.getObject("KonutOdaSayisi")),
+                        rs.getString("KonutAciklama").trim(),
+                        rs.getString("KonutSehir").trim(),
+                        rs.getString("KonutIlce").trim(),
+                        rs.getString("KonutMahalle").trim(),
+                        rs.getString("KonutSokak").trim(),
+                        kTur,
+                        rs.getInt("KonutInsaatYili")
+                );
+                k.setId(rs.getInt("IlanID"));
+                liste.add(k);
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+
+        return liste;
     }
 
-    // --- 5. GİYİM EKLEME ---
-    public void giyimEkle(Giyim giyim) {
-        int ilanId = anaIlanKaydet(giyim);
-
-        if (ilanId != -1) {
-            System.out.println("Veritabanı: Giyim detayları ekleniyor...");
-
-            // ***************** ARKADAŞININ GÖREVİ *****************
-            // Tablo: 'giyim' (ilan_id, tur, beden, cinsiyet...)
-            // ******************************************************
-        }
-    }
-
-    // --- 6. ÖZEL DERS EKLEME ---
-    public void ozelDersEkle(OzelDers ders) {
-        int ilanId = anaIlanKaydet(ders);
-
-        if (ilanId != -1) {
-            System.out.println("Veritabanı: Ders detayları ekleniyor...");
-
-            // ***************** ARKADAŞININ GÖREVİ *****************
-            // Tablo: 'dersler' (ilan_id, ders_turu, egitim_seviyesi)
-            // ******************************************************
-        }
-    }
+    // Not: Giyim, Teknoloji ve Ders ekleme/çekme metodlarını da aynı mantıkla ekleyebilirsin.
 }
