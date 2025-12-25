@@ -74,13 +74,13 @@
                   <HBox prefHeight="32.0" prefWidth="320.0">
                      <children>
                         <Label prefHeight="21.0" prefWidth="100.0" text="Kullanıcı Adı" textFill="#333333" />
-                        <TextField />
+                        <TextField fx:id="kAdiTextField" />
                      </children>
                   </HBox>
                   <HBox prefHeight="25.0" prefWidth="303.0">
                      <children>
                         <Label prefHeight="21.0" prefWidth="102.0" text="şifre" textFill="#333333" />
-                        <PasswordField prefHeight="30.0" prefWidth="147.0" />
+                        <PasswordField fx:id="kSifrePasswordField" prefHeight="30.0" prefWidth="147.0" />
                      </children>
                   </HBox>
                   <Button fx:id="girisButton" mnemonicParsing="false" onAction="#girisButtonclick" prefHeight="30.0" prefWidth="320.0" style="-fx-background-color: transparent;" text="Giriş Yap" textFill="#333333" />
@@ -93,7 +93,7 @@
             <HBox fillHeight="false" prefHeight="27.0" prefWidth="788.0" spacing="100.0" style="-fx-background-color: #F8F8F8;" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="filtreButton" mnemonicParsing="false" onAction="#filtreButtonclick" prefHeight="30.0" prefWidth="290.0" style="-fx-background-color: transparant;" text="filtrele" textFill="#333333" />
-                  <Button fx:id="siralaButton" mnemonicParsing="false" onAction="#siralaButtonclick" prefHeight="30.0" prefWidth="334.0" style="-fx-background-color: transparant;" text="sırala" textFill="#333333" />
+                  <Button fx:id="siralaButton" mnemonicParsing="false" onAction="#siralaButtonclick" prefHeight="30.0" prefWidth="334.0" style="-fx-background-color: transparent;" text="sırala" textFill="#333333" />
                   <ToggleButton fx:id="favButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="243.0" style="-fx-background-color: transparant;" text="Favorileri Görüntüle" />
                </children>
             </HBox>

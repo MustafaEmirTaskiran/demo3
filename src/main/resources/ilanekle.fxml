@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="880.0" prefWidth="1052.0" style="-fx-background-color: #B0E0E6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo3.IlanekleController">
+<AnchorPane prefHeight="880.0" prefWidth="1052.0" style="-fx-background-color: #B0E0E6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo3.IlanEkleController">
     <children>
         <VBox layoutX="73.0" layoutY="71.0" prefHeight="229.0" prefWidth="317.0" style="-fx-background-color: #B0E0E6;">
             <children>
