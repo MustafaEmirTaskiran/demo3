@@ -163,50 +163,105 @@ public class IlanEkleController implements Initializable {
         boolean basarili = false;
 
         try {
-            // ORTAK VERİLERİ AL (Fiyat, Resim vb.)
+            // ORTAK VERİLERİ AL
             String baslik = baslikTextField.getText();
-            double fiyat = Double.parseDouble(fiyatTextField.getText());
+            // Fiyat boşsa hata vermesin, 0 olsun
+            double fiyat = 0;
+            try { fiyat = Double.parseDouble(fiyatTextField.getText()); } catch (Exception e) {}
             String resimYolu = resimyoluTextField.getText();
 
-            // KATEGORİYE GÖRE İŞLEM YAP
+            // =========================================================
+            // --- KATEGORİYE GÖRE DAO ÇAĞIR ---
+            // =========================================================
+
             if (secilenKategori.equals("Taşıt")) {
-                // Taşıt Nesnesi Oluştur
                 Tasit t = new Tasit(
-                        baslik,
-                        fiyat,
-                        resimYolu,
-                        "Tasit",
-                        oaciklamaTextArea.getText(),
-                        Tasitturu.OTOMOBIL, // Varsayılan veya TextField'dan Enum çevrilebilir
+                        baslik, fiyat, resimYolu, "Tasit", oaciklamaTextArea.getText(),
+                        Tasitturu.OTOMOBIL, // Varsayılan veya TextField
                         yakittipiTextField.getText(),
-                        Integer.parseInt(kilometreTextField.getText()),
+                        tryParseInt(kilometreTextField.getText()),
                         omarkaTextField.getText(),
-                        Integer.parseInt(omodelyiliTextField.getText()),
+                        tryParseInt(omodelyiliTextField.getText()),
                         vitesTextField.getText()
                 );
-                // DAO ile kaydet
-                basarili = dao.tasitEkle(t, Oturum.aktifKullaniciId);
-
-            } else if (secilenKategori.equals("Konut")) {
-                // Konut Nesnesi Oluştur (KonutEkleDAO yazılmalı veya genel DAO genişletilmeli)
-                // Şimdilik örnek uyarı:
-                showAlert("Bilgi", "Konut ekleme henüz aktif değil (DAO metodunu ekleyiniz).");
-                return;
+                basarili = dao.tasitEkle(t, Oturum.aktifKullaniciId, oModelTextField.getText());
             }
-            // Diğer kategoriler için else-if blokları eklenecek...
+            else if (secilenKategori.equals("Konut")) {
+                Konut k = new Konut(
+                        baslik, fiyat, resimYolu, "Konut",
+                        odasayisiTextField.getText(),
+                        aciklamaTextArea.getText(),
+                        sehirTextField.getText(),
+                        ilceTextField.getText(),
+                        mahalleTextField.getText(),
+                        sokakTextField.getText(),
+                        KonutturuEnum.DAIRE, // Veya ComboBox'tan alabilirsin
+                        tryParseInt(konutyapimyiliTextField.getText())
+                );
+                basarili = dao.konutEkle(k, Oturum.aktifKullaniciId);
+            }
+            else if (secilenKategori.equals("Giyim")) {
+                String secilenCinsiyet = cinsiyetComboBox.getValue() != null ? cinsiyetComboBox.getValue() : "Unisex";
+                Giyim g = new Giyim(
+                        baslik, fiyat, resimYolu, "Giyim",
+                        kaciklamaTextArea.getText(),
+                        gmarkaTextField.getText(),
+                        asinmamiktarTextField.getText(),
+                        gbedenTextField.getText(),
+                        secilenCinsiyet,
+                        GiyimEnum.UST_GIYIM // Veya ComboBox
+                );
+                basarili = dao.giyimEkle(g, Oturum.aktifKullaniciId);
+            }
+            else if (secilenKategori.equals("Teknoloji")) {
+                Teknoloji tek = new Teknoloji(
+                        baslik, fiyat, resimYolu, "Teknoloji",
+                        taciklamaTextArea.getText(),
+                        tmarkaTextField.getText(),
+                        tmodelTextField.getText(),
+                        TeknolojituruEnum.BILGISAYAR // Veya ComboBox
+                );
+                basarili = dao.teknolojiEkle(tek, Oturum.aktifKullaniciId);
+            }
+            else if (secilenKategori.equals("Özel Ders")) {
+                String seviyeStr = egitimSeviyesiComboBox.getValue();
+                // Basit bir eşleştirme (Gerçek projede daha detaylı yapılabilir)
+                OzeldersEnum seviye = OzeldersEnum.ARA_SINIF;
+                if(seviyeStr != null && seviyeStr.contains("Lise")) seviye = OzeldersEnum.TYT_AYT_LGS;
+
+                OzelDers ders = new OzelDers(
+                        dersturuTextField.getText(), // Başlık olarak Ders Türü kullanıldı
+                        fiyat,
+                        null, // Özel derste resim olmayabilir
+                        dersTextArea.getText(),
+                        "OzelDers",
+                        seviye,
+                        seviye
+                );
+                basarili = dao.ozelDersEkle(ders, Oturum.aktifKullaniciId);
+            }
+
+            // =========================================================
 
             if (basarili) {
-                showAlert("Başarılı", "İlanınız başarıyla yayınlandı!");
+                showAlert("Başarılı", secilenKategori + " ilanı başarıyla yayınlandı!");
                 geridonButtonclick(event); // Ana sayfaya dön
             } else {
                 showAlert("Hata", "Veritabanına kayıt sırasında bir sorun oluştu.");
             }
 
-        } catch (NumberFormatException e) {
-            showAlert("Hata", "Fiyat, Yıl veya Kilometre alanlarına sadece sayı giriniz!");
         } catch (Exception e) {
             e.printStackTrace();
             showAlert("Hata", "Beklenmedik bir hata: " + e.getMessage());
+        }
+    }
+
+    // Yardımcı: Sayı girilmezse hata verip çökmemesi için 0 döndüren metot
+    private int tryParseInt(String value) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return 0;
         }
     }
 
