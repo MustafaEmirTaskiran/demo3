@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -295,7 +296,29 @@ public class SpotalController implements Initializable {
     @FXML private Button filtreButton;
     @FXML protected void filtreButtonclick(){}
     @FXML private Button siralaButton;
-    @FXML protected void siralaButtonclick(){}
+    // Sıralama durumunu tutmak için sınıfın en üstüne (tanımlamaların oraya) bu değişkeni ekle:
+    private boolean artanSiradaMi = true;
+
+    @FXML
+    protected void siralaButtonclick() {
+        // Mevcut ekranda ne görünüyorsa onu al (Filtrelenmiş olabilir)
+        ObservableList<Ilan> mevcutListe = ilanListView.getItems();
+
+        if (artanSiradaMi) {
+            // UCUZDAN -> PAHALIYA
+            FXCollections.sort(mevcutListe, Comparator.comparingDouble(Ilan::getFiyat));
+            siralaButton.setText("Sırala (Önce En Pahalı)");
+            System.out.println("Ucuzdan pahalıya sıralandı.");
+        } else {
+            // PAHALIDAN -> UCUZA
+            FXCollections.sort(mevcutListe, (i1, i2) -> Double.compare(i2.getFiyat(), i1.getFiyat()));
+            siralaButton.setText("Sırala (Önce En Ucuz)");
+            System.out.println("Pahalıdan ucuza sıralandı.");
+        }
+
+        // Bir sonraki tıklama için durumu tersine çevir
+        artanSiradaMi = !artanSiradaMi;
+    }
 
     @FXML private Button ilanekButton;
     @FXML
