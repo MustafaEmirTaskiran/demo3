@@ -16,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class SpotalController implements Initializable {
@@ -28,24 +27,191 @@ public class SpotalController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // 1. Listeyi hafızada oluştur
         tumIlanlarListesi = FXCollections.observableArrayList();
 
-        // --- VERİTABANI BAĞLANTISI ---
-        try {
-            // Veritabanından gerçek verileri çek
-            List<Ilan> dbGelenler = VeriTabaniYoneticisi.getInstance().tumIlanlariGetir();
-            tumIlanlarListesi.addAll(dbGelenler);
+        // ===========================================================================
+        // --- 1. TAŞIT ÖRNEKLERİ (Filtreler: Otomobil, Motor, Kamyonet) ---
+        // ===========================================================================
 
-            System.out.println("Veritabanından " + dbGelenler.size() + " adet ilan çekildi.");
-        } catch (Exception e) {
-            System.err.println("Veritabanı bağlantı hatası: " + e.getMessage());
-        }
+        Tasit araba1 = new Tasit(
+                "Sahibinden Hatasız BMW 5.20",
+                2250000.0,
+                "C:\\resimler\\bmw.jpg",
+                "Otomobil",
+                "Makam aracı olarak kullanıldı, hatasız boyasız.",
+                Tasitturu.OTOMOBIL, "Dizel", 120000, "BMW", 2018, "Otomatik"
+        );
 
-        // Listeyi Ekrana Bağla
+        Tasit araba2 = new Tasit(
+                "Acil Satılık Fiat Egea",
+                850000.0,
+                "C:\\resimler\\egea.jpg",
+                "Otomobil",
+                "Aile aracı, bakımları yeni yapıldı.",
+                Tasitturu.OTOMOBIL, "Benzin/LPG", 45000, "Fiat", 2021, "Manuel"
+        );
+
+        Tasit motor1 = new Tasit(
+                "Yamaha R25 - Düşük KM",
+                210000.0,
+                "C:\\resimler\\motor.jpg",
+                "Otomobil", // Kategori Stringi (Filtre Enum'dan çalışır)
+                "Garaj motorudur, kazası yok.",
+                Tasitturu.MOTOR, "Benzin", 5000, "Yamaha", 2023, "Manuel"
+        );
+
+        Tasit kamyon1 = new Tasit(
+                "İş Değişikliği Nedeniyle Ford Transit",
+                600000.0,
+                "C:\\resimler\\kamyonet.jpg",
+                "Otomobil",
+                "Yük taşımaya uygun, kasalı.",
+                Tasitturu.KAMYONET, "Dizel", 250000, "Ford", 2015, "Manuel"
+        );
+
+        // ===========================================================================
+        // --- 2. KONUT ÖRNEKLERİ (Filtreler: Daire, Arsa, Müstakil) ---
+        // ===========================================================================
+
+        Konut ev1 = new Konut(
+                "Merkezde 3+1 Kiralık Daire",
+                25000.0,
+                "C:\\resimler\\ev1.jpg",
+                "Konut",
+                "3+1", "Metroya yürüme mesafesinde.",
+                "Ankara", "Çankaya", "Bahçelievler", "7. Cadde",
+                KonutturuEnum.DAIRE, 15
+        );
+
+        Konut villa1 = new Konut(
+                "Deniz Manzaralı Lüks Villa",
+                15000000.0,
+                "C:\\resimler\\villa.jpg",
+                "Konut",
+                "5+2", "Havuzlu, güvenlikli site içerisinde.",
+                "İzmir", "Urla", "Kekliktepe", "Manzara Sk.",
+                KonutturuEnum.MUSTAKIL, 2
+        );
+
+        Konut arsa1 = new Konut(
+                "Yatırımlık İmarlı Arsa",
+                3000000.0,
+                "C:\\resimler\\arsa.jpg",
+                "Konut",
+                "-", "Köşe parsel, %30 imarlı.",
+                "Bursa", "Nilüfer", "Görükle", "-",
+                KonutturuEnum.ARSA, 0
+        );
+
+        // ===========================================================================
+        // --- 3. TEKNOLOJİ ÖRNEKLERİ (Filtreler: Telefon, PC, Beyaz Eşya) ---
+        // ===========================================================================
+
+        Teknoloji telefon1 = new Teknoloji(
+                "iPhone 14 Pro - Çiziksiz",
+                55000.0,
+                "C:\\resimler\\iphone.jpg",
+                "Teknoloji",
+                "Pil sağlığı %95, garantisi devam ediyor.",
+                "Apple", "14 Pro", TeknolojituruEnum.CEP_TELEFONU
+        );
+
+        Teknoloji pc1 = new Teknoloji(
+                "Oyun Bilgisayarı RTX 4060",
+                35000.0,
+                "C:\\resimler\\pc.jpg",
+                "Teknoloji",
+                "Tüm oyunları ultra ayarda açar.",
+                "Asus", "Tuf Gaming", TeknolojituruEnum.BILGISAYAR
+        );
+
+        Teknoloji beyazEsya = new Teknoloji(
+                "Arçelik No-Frost Buzdolabı",
+                15000.0,
+                "C:\\resimler\\dolap.jpg",
+                "Teknoloji",
+                "Taşınma sebebiyle satılık, sorunsuz.",
+                "Arçelik", "XXL Model", TeknolojituruEnum.BEYAZ_ESYA
+        );
+
+        // ===========================================================================
+        // --- 4. GİYİM ÖRNEKLERİ (Filtreler: Üst, Alt) ---
+        // ===========================================================================
+
+        Giyim mont = new Giyim(
+                "North Face Kışlık Mont",
+                4500.0,
+                "C:\\resimler\\mont.jpg",
+                "Giyim",
+                "Sadece 2 kere giyildi, orijinal.",
+                "North Face", "Az Kullanılmış", "L", "Erkek", GiyimEnum.UST_GIYIM
+        );
+
+        Giyim pantolon = new Giyim(
+                "Levi's Kot Pantolon",
+                800.0,
+                "C:\\resimler\\kot.jpg",
+                "Giyim",
+                "Rengi solmamış, temiz.",
+                "Levis", "İyi", "32/32", "Unisex", GiyimEnum.ALT_GIYIM
+        );
+
+        // ===========================================================================
+        // --- 5. ÖZEL DERS ÖRNEKLERİ (Filtreler: TYT/LGS, Ara Sınıf) ---
+        // ===========================================================================
+
+        OzelDers matDers = new OzelDers(
+                "ODTÜ'lüden Matematik Özel Ders",
+                750.0,
+                "C:\\resimler\\mat.jpg",
+                "Öğrenci evinde veya online.",
+                "Ders",
+                OzeldersEnum.TYT_AYT_LGS, // Ders Türü
+                OzeldersEnum.TYT_AYT_LGS  // Seviye
+        );
+
+        OzelDers piyano = new OzelDers(
+                "Başlangıç Seviye Piyano Dersi",
+                1000.0,
+                "C:\\resimler\\piyano.jpg",
+                "Her yaş grubu için uygundur.",
+                "Ders",
+                OzeldersEnum.ARA_SINIF,
+                OzeldersEnum.ARA_SINIF
+        );
+
+        // ---------------------------------------------------------------------------
+        // LİSTEYE HEPSİNİ EKLE
+        // ---------------------------------------------------------------------------
+        tumIlanlarListesi.addAll(
+                araba1, araba2, motor1, kamyon1,   // Taşıtlar
+                ev1, villa1, arsa1,                // Konutlar
+                telefon1, pc1, beyazEsya,          // Teknoloji
+                mont, pantolon,                    // Giyim
+                matDers, piyano                    // Ders
+        );
+
+        // 3. Listeyi ListView'a Bağla
         ilanListView.setItems(tumIlanlarListesi);
         ilanListView.setCellFactory(param -> new IlanCell());
 
-        // ... (Favori buton ve diğer buton kodların aynen kalsın) ...
+        // --- FAVORİ FİLTRELEME BUTONU ---
+        if (favButton != null) {
+            favButton.setOnAction(event -> {
+                if (favButton.isSelected()) {
+                    ObservableList<Ilan> sadeceFavoriler = FXCollections.observableArrayList();
+                    for (Ilan ilan : tumIlanlarListesi) {
+                        if (ilan.isFavoriMi()) sadeceFavoriler.add(ilan);
+                    }
+                    ilanListView.setItems(sadeceFavoriler);
+                    favButton.setText("Tüm İlanları Göster");
+                } else {
+                    ilanListView.setItems(tumIlanlarListesi);
+                    favButton.setText("Favorileri Görüntüle");
+                }
+            });
+        }
     }
 
 
@@ -191,15 +357,12 @@ public class SpotalController implements Initializable {
 
     @FXML private Button ustgiyimButton;
     @FXML protected void ustgiyimButtonclick(){
-        KatogeriFiltrele(ilan -> ilan instanceof Giyim && ((Giyim) ilan).getGiyimturu() == GiyimEnum.UST_GIYIM);
+        KatogeriFiltrele(ilan -> ilan instanceof Giyim && ((Giyim) ilan).getGiyimturu() == GiyimEnum.ALT_GIYIM);
 
     }
 
     @FXML private Button altgiyimButton;
-    @FXML protected void altgiyimButtonclick(){
-        KatogeriFiltrele(ilan -> ilan instanceof Giyim && ((Giyim) ilan).getGiyimturu() == GiyimEnum.ALT_GIYIM);
-
-    }
+    @FXML protected void altgiyimButtonclick(){}
 
     @FXML private Button kayitButton;
     @FXML
