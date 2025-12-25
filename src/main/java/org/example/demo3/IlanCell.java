@@ -2,6 +2,7 @@ package org.example.demo3;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,12 +13,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.scene.Node; // Node eklemeyi unutma
 
 import java.io.File;
 import java.io.IOException;
 
 public class IlanCell extends ListCell<Ilan> {
+
     @FXML
     private AnchorPane ihAnchorPane;
     @FXML
@@ -41,6 +42,7 @@ public class IlanCell extends ListCell<Ilan> {
             setText(null);
             setGraphic(null);
         } else {
+            // FXML Yükleyiciyi sadece bir kez oluştur (Performans için)
             if (mlLoader == null) {
                 mlLoader = new FXMLLoader(getClass().getResource("/Ilan_hucre.fxml"));
                 mlLoader.setController(this);
@@ -52,71 +54,96 @@ public class IlanCell extends ListCell<Ilan> {
                 }
             }
 
-            // Temel Bilgileri Doldur
+            // --- 1. TEMEL BİLGİLERİ DOLDUR ---
             ihBaslikLabel.setText(ilan.getBaslik());
             ihFiyatLabel.setText(ilan.getFiyat() + " TL");
 
-            // Kapak Resmini Ayarla (İlk resmi al)
+            // --- 2. KAPAK RESMİNİ AYARLA ---
             String resimYollari = ilan.getResimyolu();
             if (resimYollari != null && !resimYollari.isEmpty()) {
+                // Birden fazla resim varsa "| " ile ayrılmıştı, ilkini alıyoruz
                 String[] yollar = resimYollari.split(" \\| ");
                 try {
                     File dosya = new File(yollar[0]);
                     ihImageView.setImage(new Image(dosya.toURI().toString()));
                 } catch (Exception e) {
-                    // Resim yoksa boş geç
+                    // Resim bulunamazsa veya hatalıysa boş bırak
+                    ihImageView.setImage(null);
                 }
+            } else {
+                ihImageView.setImage(null);
             }
 
+            // --- 3. FAVORİ SİSTEMİ (VERİTABANI ENTEGRASYONU) ---
 
+            // Önce eski tıklama olayını temizle (Liste kaydırılınca karışmasın diye)
             favEkleToggleButton.setOnAction(null);
 
+            FavoriDAO favDao = new FavoriDAO();
 
-            favEkleToggleButton.setSelected(ilan.isFavoriMi());
+            // A) Başlangıç Durumu: Kullanıcı giriş yapmışsa veritabanından kontrol et
+            if (Oturum.aktifKullaniciId > 0) {
+                // Veritabanına sor: Bu kullanıcı bu ilanı beğenmiş mi?
+                boolean dbFavoriMi = favDao.isFavori(Oturum.aktifKullaniciId, ilan.getId());
 
+                favEkleToggleButton.setSelected(dbFavoriMi); // Kalbi doldur veya boşalt
+                ilan.setFavoriMi(dbFavoriMi); // Java nesnesini de güncelle
+            } else {
+                // Giriş yapmamışsa kalp boş olsun
+                favEkleToggleButton.setSelected(false);
+            }
 
+            // B) Tıklama Olayı: Kullanıcı kalbe bastığında ne olsun?
             favEkleToggleButton.setOnAction(event -> {
+                // 1. Giriş kontrolü
+                if (Oturum.aktifKullaniciId == 0) {
+                    System.out.println("UYARI: Favorilere eklemek için lütfen giriş yapınız!");
+                    favEkleToggleButton.setSelected(false); // İşlemi geri al (Kalbi söndür)
+                    return;
+                }
+
                 boolean seciliMi = favEkleToggleButton.isSelected();
 
-
-                ilan.setFavoriMi(seciliMi);
-
                 if (seciliMi) {
-                    System.out.println(ilan.getBaslik() + " favorilere eklendi");
-
+                    // --- VERİTABANINA EKLE ---
+                    boolean basarili = favDao.favoriEkle(Oturum.aktifKullaniciId, ilan.getId());
+                    if (basarili) {
+                        ilan.setFavoriMi(true);
+                        System.out.println("DB: Favorilendi -> " + ilan.getBaslik());
+                    }
                 } else {
-                    System.out.println(ilan.getBaslik() + " favorilerden çıkarıldı");
-
+                    // --- VERİTABANINDAN SİL ---
+                    boolean basarili = favDao.favoriCikar(Oturum.aktifKullaniciId, ilan.getId());
+                    if (basarili) {
+                        ilan.setFavoriMi(false);
+                        System.out.println("DB: Favoriden Çıkarıldı -> " + ilan.getBaslik());
+                    }
                 }
             });
 
-            // --- İŞTE EKSİK OLAN KISIM BURASI ---
-            // İlanı İncele Butonu Bağlantısı
+            // --- 4. İLANI İNCELE BUTONU ---
             ihIlaniInceleButton.setOnAction(event -> {
                 try {
-                    // 1. Detay sayfasının tasarımını yükle
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/ilanigoruntule.fxml"));
                     Parent root = loader.load();
 
-                    // 2. Detay sayfasının beynine (Controller) ulaş
+                    // Detay sayfasına veriyi gönder
                     IlanDetayController controller = loader.getController();
-
-                    // 3. Veriyi (Şu anki ilanı) karşıya gönder!
                     controller.veriAl(ilan);
 
-                    // 4. Sayfayı değiştir
+                    // Sayfayı değiştir
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
 
                 } catch (IOException e) {
-                    System.err.println("Hata: Detay sayfası (ilandetay.fxml) açılamadı!");
+                    System.err.println("Hata: Detay sayfası (ilanigoruntule.fxml) açılamadı!");
                     e.printStackTrace();
                 }
             });
-            // ------------------------------------
 
+            // Görünümü hücreye ata
             setGraphic(ihAnchorPane);
         }
     }
