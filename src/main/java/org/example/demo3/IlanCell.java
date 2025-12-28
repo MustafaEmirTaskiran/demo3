@@ -16,23 +16,43 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class IlanCell extends ListCell<Ilan> {
 
-    @FXML
-    private AnchorPane ihAnchorPane;
-    @FXML
-    private ImageView ihImageView;
-    @FXML
-    private Label ihFiyatLabel;
-    @FXML
-    private Label ihBaslikLabel;
-    @FXML
-    private Button ihIlaniInceleButton;
-    @FXML
-    private ToggleButton favEkleToggleButton;
+    @FXML private AnchorPane ihAnchorPane;
+    @FXML private ImageView ihImageView;
+    @FXML private Label ihFiyatLabel;
+    @FXML private Label ihBaslikLabel;
+    @FXML private Button ihIlaniInceleButton;
+    @FXML private ToggleButton favEkleToggleButton;
 
     private FXMLLoader mlLoader;
+
+    // --- RESİM YÜKLEME KISMI (İsimleri senin verdiklerinle güncelledim) ---
+    // NOT: Dosyaların uzantısı .png değilse (örn: .jpg) aşağıdan değiştirmelisin.
+    private static final Image KALP_BOS_IMG = new Image(Objects.requireNonNull(IlanCell.class.getResourceAsStream("/Bos_Kalp_Icon.png")));
+    private static final Image KALP_DOLU_IMG = new Image(Objects.requireNonNull(IlanCell.class.getResourceAsStream("/Dolu_Kalp_Icon.png")));
+
+    // Her hücre için ikon görünümü
+    private final ImageView bosKalpView = new ImageView(KALP_BOS_IMG);
+    private final ImageView doluKalpView = new ImageView(KALP_DOLU_IMG);
+
+    public IlanCell() {
+        // İkon boyutlarını ideal boyuta (24x24) ayarlıyoruz
+        bosKalpView.setFitHeight(24); bosKalpView.setFitWidth(24);
+        doluKalpView.setFitHeight(24); doluKalpView.setFitWidth(24);
+    }
+
+    // İkon değiştirme yardımcısı
+    private void updateFavoriIcon(boolean favoriMi) {
+        if (favoriMi) {
+            favEkleToggleButton.setGraphic(doluKalpView);
+        } else {
+            favEkleToggleButton.setGraphic(bosKalpView);
+        }
+        favEkleToggleButton.setText("");
+    }
 
     @Override
     protected void updateItem(Ilan ilan, boolean empty) {
@@ -42,108 +62,79 @@ public class IlanCell extends ListCell<Ilan> {
             setText(null);
             setGraphic(null);
         } else {
-            // FXML Yükleyiciyi sadece bir kez oluştur (Performans için)
             if (mlLoader == null) {
                 mlLoader = new FXMLLoader(getClass().getResource("/Ilan_hucre.fxml"));
                 mlLoader.setController(this);
-
-                try {
-                    mlLoader.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                try { mlLoader.load(); } catch (IOException e) { e.printStackTrace(); }
             }
 
-            // --- 1. TEMEL BİLGİLERİ DOLDUR ---
+            // Bilgileri Doldur
             ihBaslikLabel.setText(ilan.getBaslik());
             ihFiyatLabel.setText(ilan.getFiyat() + " TL");
 
-            // --- 2. KAPAK RESMİNİ AYARLA ---
+            // İlan Resmini Ayarla
             String resimYollari = ilan.getResimyolu();
             if (resimYollari != null && !resimYollari.isEmpty()) {
-                // Birden fazla resim varsa "| " ile ayrılmıştı, ilkini alıyoruz
                 String[] yollar = resimYollari.split(" \\| ");
                 try {
                     File dosya = new File(yollar[0]);
                     ihImageView.setImage(new Image(dosya.toURI().toString()));
-                } catch (Exception e) {
-                    // Resim bulunamazsa veya hatalıysa boş bırak
-                    ihImageView.setImage(null);
-                }
-            } else {
-                ihImageView.setImage(null);
-            }
+                } catch (Exception e) { ihImageView.setImage(null); }
+            } else { ihImageView.setImage(null); }
 
-            // --- 3. FAVORİ SİSTEMİ (VERİTABANI ENTEGRASYONU) ---
-
-            // Önce eski tıklama olayını temizle (Liste kaydırılınca karışmasın diye)
+            // --- FAVORİ İKONU MANTIĞI ---
             favEkleToggleButton.setOnAction(null);
-
             FavoriDAO favDao = new FavoriDAO();
 
-            // A) Başlangıç Durumu: Kullanıcı giriş yapmışsa veritabanından kontrol et
+            // Başlangıç Durumu
             if (Oturum.aktifKullaniciId > 0) {
-                // Veritabanına sor: Bu kullanıcı bu ilanı beğenmiş mi?
                 boolean dbFavoriMi = favDao.isFavori(Oturum.aktifKullaniciId, ilan.getId());
-
-                favEkleToggleButton.setSelected(dbFavoriMi); // Kalbi doldur veya boşalt
-                ilan.setFavoriMi(dbFavoriMi); // Java nesnesini de güncelle
+                favEkleToggleButton.setSelected(dbFavoriMi);
+                ilan.setFavoriMi(dbFavoriMi);
+                updateFavoriIcon(dbFavoriMi); // İkonu güncelle
             } else {
-                // Giriş yapmamışsa kalp boş olsun
                 favEkleToggleButton.setSelected(false);
+                updateFavoriIcon(false); // Boş kalp
             }
 
-            // B) Tıklama Olayı: Kullanıcı kalbe bastığında ne olsun?
+            // Tıklama Olayı
             favEkleToggleButton.setOnAction(event -> {
-                // 1. Giriş kontrolü
                 if (Oturum.aktifKullaniciId == 0) {
-                    System.out.println("UYARI: Favorilere eklemek için lütfen giriş yapınız!");
-                    favEkleToggleButton.setSelected(false); // İşlemi geri al (Kalbi söndür)
+                    System.out.println("UYARI: Giriş yapmalısınız!");
+                    favEkleToggleButton.setSelected(false);
+                    updateFavoriIcon(false);
                     return;
                 }
 
                 boolean seciliMi = favEkleToggleButton.isSelected();
-
                 if (seciliMi) {
-                    // --- VERİTABANINA EKLE ---
-                    boolean basarili = favDao.favoriEkle(Oturum.aktifKullaniciId, ilan.getId());
-                    if (basarili) {
+                    if (favDao.favoriEkle(Oturum.aktifKullaniciId, ilan.getId())) {
                         ilan.setFavoriMi(true);
-                        System.out.println("DB: Favorilendi -> " + ilan.getBaslik());
+                        updateFavoriIcon(true); // Dolu kalp yap
+                        System.out.println("Favorilendi: " + ilan.getBaslik());
                     }
                 } else {
-                    // --- VERİTABANINDAN SİL ---
-                    boolean basarili = favDao.favoriCikar(Oturum.aktifKullaniciId, ilan.getId());
-                    if (basarili) {
+                    if (favDao.favoriCikar(Oturum.aktifKullaniciId, ilan.getId())) {
                         ilan.setFavoriMi(false);
-                        System.out.println("DB: Favoriden Çıkarıldı -> " + ilan.getBaslik());
+                        updateFavoriIcon(false); // Boş kalp yap
+                        System.out.println("Favori Silindi: " + ilan.getBaslik());
                     }
                 }
             });
 
-            // --- 4. İLANI İNCELE BUTONU ---
+            // Detay Butonu
             ihIlaniInceleButton.setOnAction(event -> {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/ilanigoruntule.fxml"));
                     Parent root = loader.load();
-
-                    // Detay sayfasına veriyi gönder
                     IlanDetayController controller = loader.getController();
                     controller.veriAl(ilan);
-
-                    // Sayfayı değiştir
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
+                    stage.setScene(new Scene(root));
                     stage.show();
-
-                } catch (IOException e) {
-                    System.err.println("Hata: Detay sayfası (ilanigoruntule.fxml) açılamadı!");
-                    e.printStackTrace();
-                }
+                } catch (IOException e) { e.printStackTrace(); }
             });
 
-            // Görünümü hücreye ata
             setGraphic(ihAnchorPane);
         }
     }
