@@ -8,7 +8,7 @@ public class DBbaglanti {
 
     // --- BURALARI ARKADAŞINDAN ÖĞRENİP DEĞİŞTİR ---
     // 1. Arkadaşının Bilgisayarının IP Adresi (Örn: 192.168.1.35)
-    private static final String IP_ADRESI = "10.140.211.148";
+    private static final String IP_ADRESI = "10.231.124.148";
 
     // 2. Veritabanının Adı (Ekran görüntüsünde tablo isimleri vardı ama DB adını o bilir)
     private static final String DB_ISMI = "spotalDB";
